@@ -1,0 +1,4 @@
+name: MobArenaStats
+author: garbagemule
+main: org.mobarena.stats.MobArenaStatsPlugin
+version: '1.0'

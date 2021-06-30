@@ -1,0 +1,2 @@
+-- Some database baseline
+CREATE TABLE IF NOT EXISTS bob(id  INTEGER PRIMARY KEY AUTOINCREMENT);

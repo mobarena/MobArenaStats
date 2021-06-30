@@ -1,0 +1,17 @@
+# Java
+*.class
+
+# Maven
+target/
+
+# Artifacts
+*.jar
+*.zip
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Residue
+*.db

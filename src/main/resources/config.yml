@@ -1,0 +1,59 @@
+#----------------------------------------------------------------------
+# The store is where all the collected data is kept. Different store
+# types are supported:
+#
+# - sqlite: stores stats in an SQLite database
+# - mysql: stores stats in a MySQL/MariaDB database
+# - csv: stores stats in local CSV files
+#
+# Stores may require configuration of additional properties, such as
+# file paths or database credentials.
+#----------------------------------------------------------------------
+store:
+
+  #--------------------------------------------------------------------
+  # Which type of store to use.
+  #
+  # Changing this value will _not_ result in an automatic conversion
+  # of existing store data. To transfer data to a different store,
+  # make an export of the current store first, then change type and
+  # import the exported data.
+  #
+  type: sqlite
+  #--------------------------------------------------------------------
+
+  #--------------------------------------------------------------------
+  # SQLite store properties
+  #
+  # - filename: name of the database file, relative to plugin folder
+  #
+  filename: stats.db
+  #--------------------------------------------------------------------
+
+  #--------------------------------------------------------------------
+  # MySQL/MariaDB store properties
+  #
+  # - host: where the database instance is hosted
+  # - port: database port number
+  # - database: name of the database (must exist!)
+  # - username: username of a valid database user
+  # - password: password of a valid database user
+  # - ssl: whether to use SSL for database connections
+  #
+  #host: localhost
+  #port: 3306
+  #database: ''
+  #username: ''
+  #password: ''
+  #ssl: false
+  #--------------------------------------------------------------------
+
+  #--------------------------------------------------------------------
+  # CSV store properties
+  #
+  # - folder: where to store data files, relative to plugin folder
+  # - separator: symbol to separate fields and values with
+  #
+  #folder: data
+  #separator: ';'
+  #--------------------------------------------------------------------

@@ -1,0 +1,19 @@
+package org.mobarena.stats.store.jdbc;
+
+public enum Statement {
+
+    FIND_ALL_MIGRATIONS,
+    INSERT_MIGRATION,
+
+    INSERT_SESSION_DATA,
+    INSERT_PLAYER_DATA,
+    DELETE_SESSION_DATA,
+
+    FIND_ARENA_STATS,
+    FIND_GLOBAL_STATS,
+    FIND_PLAYER_STATS,
+
+    FIND_SESSIONS,
+    FIND_PLAYER_SESSIONS_BY_ID,
+
+}
