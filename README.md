@@ -10,14 +10,17 @@ It hooks into MobArena's command handler to provide commands for querying and ma
 Download a copy of the latest MobArenaStats build and place it in your server's `plugins` folder.
 You can grab a build from the _Artifacts_ section of the latest run of the [build workflow](https://github.com/garbagemule/MobArenaStats/actions/workflows/build.yml) in GitHub Actions, or you can join the MobArena Discord server and grab one from the `#test-builds` channel.
 
-By default, MobArenaStats uses a local SQLite database called `stats.db` located in the MobArenaStats plugin folder.
-To set up a different data store, please refer to the [Configuration](#configuration) section below.
+Start your server and let the plugin load.
+It will generate a default `config.yml` file and set up a default SQLite data store.
+If this is the store you want to use, then there is nothing left to do - fire up a MobArena session and start collecting stats!
+
+If you wish to set up a different data store, please refer to the [Configuration](#configuration) section below.
 
 
 ## Configuration
 
-Upon first run, a `config.yml` file will be generated in the MobArenaStats plugin folder.
-It consists of a single section, the `store` section, which is used to set up the data store.
+When the plugin first loads, it will generate a `config.yml` file in the plugin folder.
+This file consists of a single section, the `store` section, which is used to set up the data store.
 
 MobArenaStats _natively_ supports a couple of different data stores:
 
