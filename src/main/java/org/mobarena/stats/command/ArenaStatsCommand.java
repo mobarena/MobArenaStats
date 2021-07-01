@@ -1,5 +1,6 @@
 package org.mobarena.stats.command;
 
+import com.garbagemule.MobArena.Messenger;
 import com.garbagemule.MobArena.commands.Command;
 import com.garbagemule.MobArena.commands.CommandInfo;
 import com.garbagemule.MobArena.framework.ArenaMaster;
@@ -11,7 +12,13 @@ import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.ArenaStats;
 import org.mobarena.stats.store.StatsStore;
 
+import java.util.Arrays;
 import java.util.List;
+
+import static java.lang.String.format;
+import static org.bukkit.ChatColor.AQUA;
+import static org.bukkit.ChatColor.RESET;
+import static org.bukkit.ChatColor.YELLOW;
 
 @CommandInfo(
     name = "arena-stats",
@@ -32,17 +39,21 @@ public class ArenaStatsCommand implements Command {
         }
         String slug = Slugs.create(args[0]);
 
+        Messenger messenger = am.getGlobalMessenger();
         plugin.getAsyncExecutor().execute(() -> {
             StatsStore store = plugin.getStatsStore();
             ArenaStats stats = store.getArenaStats(slug);
-            sender.sendMessage("Stats for arena " + slug + ":");
-            sender.sendMessage("- Highest wave: " + stats.highestWave);
-            sender.sendMessage("- Longest duration: " + stats.highestSeconds + " secs");
-            sender.sendMessage("- Most kills: " + stats.highestKills);
-            sender.sendMessage("- Total sessions: " + stats.totalSessions);
-            sender.sendMessage("- Total duration: " + stats.totalSeconds + " secs");
-            sender.sendMessage("- Total kills: " + stats.totalKills);
-            sender.sendMessage("- Total waves: " + stats.totalWaves);
+            List<String> lines = Arrays.asList(
+                format("Stats for arena %s%s%s:", YELLOW, slug, RESET),
+                format("- Highest wave: %s%d%s", AQUA, stats.highestWave, RESET),
+                format("- Longest duration: %s%d%s secs", AQUA, stats.highestSeconds, RESET),
+                format("- Most kills: %s%d%s", AQUA, stats.highestKills, RESET),
+                format("- Total sessions: %s%d%s", AQUA, stats.totalSessions, RESET),
+                format("- Total duration: %s%d%s secs", AQUA, stats.totalSeconds, RESET),
+                format("- Total kills: %s%d%s", AQUA, stats.totalKills, RESET),
+                format("- Total waves: %s%d%s", AQUA, stats.totalWaves, RESET)
+            );
+            messenger.tell(sender, String.join("\n", lines));
         });
 
         return true;
