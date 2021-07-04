@@ -2,6 +2,7 @@ package org.mobarena.stats;
 
 import com.garbagemule.MobArena.MobArena;
 import com.garbagemule.MobArena.commands.CommandHandler;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.HandlerList;
@@ -12,6 +13,7 @@ import org.mobarena.stats.command.ExportCommand;
 import org.mobarena.stats.command.GlobalStatsCommand;
 import org.mobarena.stats.command.ImportCommand;
 import org.mobarena.stats.command.PlayerStatsCommand;
+import org.mobarena.stats.metrics.StoreTypeChart;
 import org.mobarena.stats.platform.AsyncBukkitExecutor;
 import org.mobarena.stats.platform.SyncBukkitExecutor;
 import org.mobarena.stats.session.SessionListener;
@@ -79,6 +81,7 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
             createConfigFile();
             setupExecutors();
             setupCommands();
+            setupMetrics();
         } catch (Exception up) {
             // If setup fails, we can't recover, so throw up
             throw new RuntimeException(up);
@@ -129,6 +132,11 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
         handler.register(DeleteSessionStatsCommand.class);
         handler.register(ExportCommand.class);
         handler.register(ImportCommand.class);
+    }
+
+    private void setupMetrics() {
+        Metrics metrics = new Metrics(this, 11932);
+        metrics.addCustomChart(new StoreTypeChart(this));
     }
 
     private void reload() {

@@ -190,3 +190,14 @@ The operation runs _off_ the main thread, so it should not impact performance.
 ## Getting Help
 
 If you run into problems or need help with something, feel free to hop on the MobArena Discord server: [Instant Invite](https://discord.gg/5tnwQvC)
+
+
+## Metrics
+
+MobArenaStats collects anonymous server metrics through [bStats](https://bstats.org/).
+The metrics include generic information like Minecraft version, as well as plugin-specific information like plugin version and store type.
+All collected metrics are publicly available [here](https://bstats.org/plugin/bukkit/MobArenaStats/11932).
+
+Please note that the stats collected by the plugin itself never leave the server, and they are thus _not_ a part of the metrics collection.
+
+To opt out of metrics collection, edit the `plugins/bStats/config.yml` file.
