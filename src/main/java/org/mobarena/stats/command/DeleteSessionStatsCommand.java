@@ -8,7 +8,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.mobarena.stats.MobArenaStats;
-import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.StatsStore;
 
 import java.util.List;
@@ -23,11 +22,14 @@ import java.util.UUID;
 )
 public class DeleteSessionStatsCommand implements Command {
 
+    private final MobArenaStats plugin;
+
+    public DeleteSessionStatsCommand(MobArenaStats plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        // :(
-        MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
-
         // TODO: check args, handle non-UUID input error
         UUID sessionId = UUID.fromString(args[0]);
 

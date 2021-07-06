@@ -37,12 +37,6 @@ import java.util.logging.Level;
 
 public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
 
-    // The sad state of affairs is that MobArena's command framework has no
-    // support for registering commands by instance, but only by class, which
-    // means that we can't properly inject dependencies and have to resort to
-    // the Singleton Pattern.
-    private static MobArenaStats instance;
-
     private StatsStoreRegistry statsStoreRegistry;
 
     private Executor syncExecutor;
@@ -78,8 +72,6 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
 
     private void setup() {
         try {
-            instance = this;
-
             createDataFolder();
             createConfigFile();
             setupExecutors();
@@ -128,14 +120,14 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
         CommandHandler handler = (CommandHandler) command.getExecutor();
 
         // User commands
-        handler.register(ArenaStatsCommand.class);
-        handler.register(GlobalStatsCommand.class);
-        handler.register(PlayerStatsCommand.class);
+        handler.register(new ArenaStatsCommand(this));
+        handler.register(new GlobalStatsCommand(this));
+        handler.register(new PlayerStatsCommand(this));
 
         // Admin commands
-        handler.register(DeleteSessionStatsCommand.class);
-        handler.register(ExportCommand.class);
-        handler.register(ImportCommand.class);
+        handler.register(new DeleteSessionStatsCommand(this));
+        handler.register(new ExportCommand(this));
+        handler.register(new ImportCommand(this));
     }
 
     private void setupMetrics() {
@@ -205,10 +197,6 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
 
     public StatsStore getStatsStore() {
         return statsStore;
-    }
-
-    public static MobArenaStats getInstance() {
-        return instance;
     }
 
 }

@@ -8,7 +8,6 @@ import com.garbagemule.MobArena.util.Slugs;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.mobarena.stats.MobArenaStats;
-import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.ArenaStats;
 import org.mobarena.stats.store.StatsStore;
 
@@ -29,11 +28,14 @@ import static org.bukkit.ChatColor.YELLOW;
 )
 public class ArenaStatsCommand implements Command {
 
+    private final MobArenaStats plugin;
+
+    public ArenaStatsCommand(MobArenaStats plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        // :(
-        MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
-
         if (args.length < 1) {
             return false;
         }

@@ -6,7 +6,6 @@ import com.garbagemule.MobArena.commands.CommandInfo;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 import org.bukkit.command.CommandSender;
 import org.mobarena.stats.MobArenaStats;
-import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.GlobalStats;
 import org.mobarena.stats.store.StatsStore;
 
@@ -27,11 +26,14 @@ import static org.bukkit.ChatColor.YELLOW;
 )
 public class GlobalStatsCommand implements Command {
 
+    private final MobArenaStats plugin;
+
+    public GlobalStatsCommand(MobArenaStats plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        // :(
-        MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
-
         Messenger messenger = am.getGlobalMessenger();
         plugin.getAsyncExecutor().execute(() -> {
             StatsStore store = plugin.getStatsStore();

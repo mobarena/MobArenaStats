@@ -7,7 +7,6 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.mobarena.stats.MobArenaStats;
-import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.PlayerStats;
 import org.mobarena.stats.store.StatsStore;
 
@@ -28,11 +27,14 @@ import static org.bukkit.ChatColor.YELLOW;
 )
 public class PlayerStatsCommand implements Command {
 
+    private final MobArenaStats plugin;
+
+    public PlayerStatsCommand(MobArenaStats plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        // :(
-        MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
-
         String name;
         if (args.length == 0) {
             if (!(sender instanceof Player)) {

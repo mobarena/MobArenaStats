@@ -7,7 +7,6 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.mobarena.stats.MobArenaStats;
-import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.StatsExport;
 import org.mobarena.stats.store.StatsStore;
 import org.mobarena.stats.store.StatsStoreRegistry;
@@ -21,11 +20,14 @@ import org.mobarena.stats.store.StatsStoreRegistry;
 )
 public class ExportCommand implements Command {
 
+    private final MobArenaStats plugin;
+
+    public ExportCommand(MobArenaStats plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        // :(
-        MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
-
         StatsStore store = plugin.getStatsStore();
         StatsStoreRegistry registry = plugin.getStatsStoreRegistry();
 

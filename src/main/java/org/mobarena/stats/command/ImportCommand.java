@@ -8,7 +8,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.mobarena.stats.MobArenaStats;
-import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.StatsExport;
 import org.mobarena.stats.store.StatsImport;
 import org.mobarena.stats.store.StatsStore;
@@ -30,14 +29,17 @@ import java.util.stream.Collectors;
 )
 public class ImportCommand implements Command {
 
+    private final MobArenaStats plugin;
+
+    public ImportCommand(MobArenaStats plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
         if (args.length < 1) {
             return false;
         }
-
-        // :(
-        MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
 
         Path data = plugin.getDataFolder().toPath();
         Path file = data.resolve(args[0]);
@@ -109,9 +111,6 @@ public class ImportCommand implements Command {
         if (args.length > 1) {
             return Collections.emptyList();
         }
-
-        // :(
-        MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
 
         String[] files = plugin.getDataFolder().list();
         if (files == null || files.length == 0) {
