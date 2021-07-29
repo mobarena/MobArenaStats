@@ -2,5 +2,5 @@ name: MobArenaStats
 author: garbagemule
 main: org.mobarena.stats.MobArenaStatsPlugin
 version: '${project.version}'
-api-version: 1.13
-softdepend: [MobArena]
+api-version: 1.17
+softdepend: [MobArena, PlaceholderAPI]
