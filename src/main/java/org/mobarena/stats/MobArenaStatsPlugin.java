@@ -2,9 +2,11 @@ package org.mobarena.stats;
 
 import com.garbagemule.MobArena.MobArena;
 import com.garbagemule.MobArena.commands.CommandHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.mobarena.stats.command.ArenaStatsCommand;
 import org.mobarena.stats.command.DeleteSessionStatsCommand;
@@ -69,6 +71,13 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
     public void onEnable() {
         setup();
         reload();
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            /*
+             * We register the EventListener here, when PlaceholderAPI is installed.
+             * Since all events are in the main class (this class), we simply use "this"
+             */
+            Bukkit.getPluginManager().registerEvents((Listener) this, this);
+        }
     }
 
     private void setup() {
