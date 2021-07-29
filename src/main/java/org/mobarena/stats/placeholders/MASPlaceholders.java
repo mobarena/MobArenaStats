@@ -7,14 +7,11 @@ import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.GlobalStats;
 import org.mobarena.stats.store.StatsStore;
 
-public class Placeholders extends PlaceholderExpansion {
+public class MASPlaceholders extends PlaceholderExpansion {
 
     MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
     StatsStore store = plugin.getStatsStore();
     GlobalStats globalStats = store.getGlobalStats();
-
-    public Placeholders(MobArenaStatsPlugin mobArenaStatsPlugin) {
-    }
 
     @Override
     public String getAuthor() {

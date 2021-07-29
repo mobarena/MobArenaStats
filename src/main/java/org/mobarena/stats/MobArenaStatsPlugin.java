@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.mobarena.stats.command.ArenaStatsCommand;
 import org.mobarena.stats.command.DeleteSessionStatsCommand;
@@ -15,7 +14,7 @@ import org.mobarena.stats.command.ExportCommand;
 import org.mobarena.stats.command.GlobalStatsCommand;
 import org.mobarena.stats.command.ImportCommand;
 import org.mobarena.stats.command.PlayerStatsCommand;
-import org.mobarena.stats.placeholders.Placeholders;
+import org.mobarena.stats.placeholders.MASPlaceholders;
 import org.mobarena.stats.platform.AsyncBukkitExecutor;
 import org.mobarena.stats.platform.SyncBukkitExecutor;
 import org.mobarena.stats.session.SessionListener;
@@ -74,7 +73,7 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
         setup();
         reload();
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new Placeholders(this).register();
+            new MASPlaceholders().register();
         }
     }
 
