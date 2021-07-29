@@ -7,21 +7,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
-import org.mobarena.stats.command.ArenaStatsCommand;
-import org.mobarena.stats.command.DeleteSessionStatsCommand;
-import org.mobarena.stats.command.ExportCommand;
-import org.mobarena.stats.command.GlobalStatsCommand;
-import org.mobarena.stats.command.ImportCommand;
-import org.mobarena.stats.command.PlayerStatsCommand;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.mobarena.stats.command.*;
 import org.mobarena.stats.platform.AsyncBukkitExecutor;
 import org.mobarena.stats.platform.SyncBukkitExecutor;
 import org.mobarena.stats.session.SessionListener;
 import org.mobarena.stats.session.SessionStore;
 import org.mobarena.stats.store.StatsStore;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.mobarena.stats.store.StatsStoreRegistry;
 import org.mobarena.stats.store.csv.CsvStatsStore;
 import org.mobarena.stats.store.jdbc.JdbcStatsStore;
@@ -72,13 +66,6 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
     public void onEnable() {
         setup();
         reload();
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            /*
-             * We register the EventListener here, when PlaceholderAPI is installed.
-             * Since all events are in the main class (this class), we simply use "this"
-             */
-            Bukkit.getPluginManager().registerEvents((Listener) this, this);
-        }
     }
 
     private void setup() {
