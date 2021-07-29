@@ -70,9 +70,6 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
 
     @Override
     public void onEnable() {
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            Bukkit.getPluginManager().registerEvents(this, this);
-        }
         setup();
         reload();
     }
