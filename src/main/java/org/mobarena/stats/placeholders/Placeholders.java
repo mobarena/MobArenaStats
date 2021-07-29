@@ -13,6 +13,9 @@ public class Placeholders extends PlaceholderExpansion {
     StatsStore store = plugin.getStatsStore();
     GlobalStats globalStats = store.getGlobalStats();
 
+    public Placeholders(MobArenaStatsPlugin mobArenaStatsPlugin) {
+    }
+
     @Override
     public String getAuthor() {
         return "Maroon28, Garbagemule";

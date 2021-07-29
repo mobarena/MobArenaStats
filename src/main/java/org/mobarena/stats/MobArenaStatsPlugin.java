@@ -15,6 +15,7 @@ import org.mobarena.stats.command.ExportCommand;
 import org.mobarena.stats.command.GlobalStatsCommand;
 import org.mobarena.stats.command.ImportCommand;
 import org.mobarena.stats.command.PlayerStatsCommand;
+import org.mobarena.stats.placeholders.Placeholders;
 import org.mobarena.stats.platform.AsyncBukkitExecutor;
 import org.mobarena.stats.platform.SyncBukkitExecutor;
 import org.mobarena.stats.session.SessionListener;
@@ -72,6 +73,9 @@ public class MobArenaStatsPlugin extends JavaPlugin implements MobArenaStats {
     public void onEnable() {
         setup();
         reload();
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new Placeholders(this).register();
+        }
     }
 
     private void setup() {
