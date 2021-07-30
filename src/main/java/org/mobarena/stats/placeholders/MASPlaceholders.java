@@ -42,12 +42,11 @@ public class MASPlaceholders extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, String identifier) {
 
-        String arenaName = identifier.split("_")[0];
-        ArenaStats arenaStats = store.getArenaStats(arenaName);
+        final String[] args = identifier.split("\\_");
+        final String arenaName = args[0];
+        ArenaStats arena = store.getArenaStats(arenaName);
 
         switch (identifier) {
-            case "_total_sessions":
-                return Integer.toString(arenaStats.totalSessions);
             case "global_sessions":
                 return Integer.toString(globalStats.totalSessions);
             case "global_duration":
@@ -59,8 +58,14 @@ public class MASPlaceholders extends PlaceholderExpansion {
             case "global_waves":
                 return Long.toString(globalStats.totalWaves);
         }
-        // arena_highest_wave
+        // arenaName_stat
+        if (args.length == 2){
+            final String param = args[1];
 
+            if ("highest_wave".equals(param)){
+                return Integer.toString(arena.highestWave);
+            }
+        }
         return null; // Not recognized by the Expansion
     }
 }
