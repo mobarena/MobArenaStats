@@ -1,6 +1,7 @@
 package org.mobarena.stats.placeholders;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.OfflinePlayer;
 import org.mobarena.stats.MobArenaStats;
 import org.mobarena.stats.MobArenaStatsPlugin;
@@ -39,7 +40,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
             case "global_sessions":
                 return Integer.toString(globalStats.totalSessions);
             case "global_duration":
-                return Long.toString(globalStats.totalSeconds);
+                return DurationFormatUtils.formatDuration(globalStats.totalSeconds, "**H:mm:ss***", true);
             case "global_kills":
                 return Long.toString(globalStats.totalKills);
             case "global_waves":
