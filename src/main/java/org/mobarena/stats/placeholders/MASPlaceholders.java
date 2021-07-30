@@ -57,7 +57,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 return Integer.toString(globalStats.totalSessions);
             case "global_seconds":
                 return Long.toString(globalStats.totalSeconds);
-            case "global_duration-formatted":
+            case "global_seconds-formatted":
                 long globalDurationFormatted = globalStats.totalSeconds * 1000;
                 return DurationFormatUtils.formatDuration(globalDurationFormatted, "HH:mm:ss", true);
             case "global_kills":
@@ -78,7 +78,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 case "highest-seconds":
                     return Integer.toString(arena.highestSeconds);
 
-                case "highest-duration-formatted":
+                case "highest-seconds-formatted":
                     return DurationFormatUtils.formatDuration(highestArenaMilliseconds, "HH:mm:ss", true);
 
                 case "total-kills":
@@ -93,7 +93,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 case "total-seconds":
                     return Long.toString(arena.totalSeconds);
 
-                case "total-duration-formatted":
+                case "total-seconds-formatted":
                     return DurationFormatUtils.formatDuration(totalArenaMilliseconds, "HH:mm:ss", true);
             }
         }
@@ -112,7 +112,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 case "total-seconds":
                     return Long.toString(name.totalSeconds);
 
-                case "total-duration-formatted":
+                case "total-seconds-formatted":
                     return DurationFormatUtils.formatDuration(totalPlayerMilliseconds, "HH:mm:ss", true);
 
                 case "total-waves":
