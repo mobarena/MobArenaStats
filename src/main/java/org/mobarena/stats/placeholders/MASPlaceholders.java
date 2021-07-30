@@ -102,7 +102,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
             }
         }
         // player_playerName_stat
-        if (args.length == 3) {
+        if (args.length == 3 && testplayer != null) {
             final String param = args[2];
 
             switch (param) {
