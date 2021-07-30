@@ -2,7 +2,9 @@ package org.mobarena.stats.placeholders;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.apache.commons.lang.time.DurationFormatUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.mobarena.stats.MobArenaStats;
 import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.ArenaStats;
@@ -43,9 +45,11 @@ public class MASPlaceholders extends PlaceholderExpansion {
         final String[] args = identifier.split("\\_");
         final String arenaName = args[0];
         final String playerName = args[1];
+        // test
+        Player testplayer = Bukkit.getPlayer(args[1]);
 
         ArenaStats arena = store.getArenaStats(arenaName);
-        PlayerStats name = store.getPlayerStats(playerName);
+        PlayerStats name = store.getPlayerStats(testplayer.getName());
 
         long totalPlayerMilliseconds = name.totalSeconds * 1000;
         long totalArenaMilliseconds = arena.totalSeconds * 1000;
