@@ -13,6 +13,8 @@ public class MASPlaceholders extends PlaceholderExpansion {
     MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
     StatsStore store = plugin.getStatsStore();
     GlobalStats globalStats = store.getGlobalStats();
+    long globalDurationFormatted = globalStats.totalSeconds * 1000;
+
 
     @Override
     public String getAuthor() {
@@ -40,7 +42,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
             case "global_sessions":
                 return Integer.toString(globalStats.totalSessions);
             case "global_duration":
-                return DurationFormatUtils.formatDuration(globalStats.totalSeconds, "**H:mm:ss***", true);
+                return DurationFormatUtils.formatDuration(globalDurationFormatted, "H:mm:ss", true);
             case "global_kills":
                 return Long.toString(globalStats.totalKills);
             case "global_waves":
