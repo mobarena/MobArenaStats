@@ -37,11 +37,14 @@ public class MASPlaceholders extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, String identifier) {
+        final String[] args = identifier.split("_");
 
         switch (identifier) {
             case "global_sessions":
                 return Integer.toString(globalStats.totalSessions);
             case "global_duration":
+                return Long.toString(globalStats.totalSeconds);
+            case "global_duration_formatted":
                 return DurationFormatUtils.formatDuration(globalDurationFormatted, "H:mm:ss", true);
             case "global_kills":
                 return Long.toString(globalStats.totalKills);
