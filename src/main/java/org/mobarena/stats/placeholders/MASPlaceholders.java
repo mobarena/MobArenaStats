@@ -121,8 +121,10 @@ public class MASPlaceholders extends PlaceholderExpansion {
 
                 case "total-waves":
                     return Long.toString(name.totalWaves);
-
             }
+        }
+        else {
+            return "Player not found!";
         }
         return null; // Not recognized by the Expansion
 }
