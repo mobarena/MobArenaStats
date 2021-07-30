@@ -1,10 +1,13 @@
 package org.mobarena.stats.placeholders;
 
+import com.garbagemule.MobArena.framework.ArenaMaster;
+import com.garbagemule.MobArena.util.Slugs;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.OfflinePlayer;
 import org.mobarena.stats.MobArenaStats;
 import org.mobarena.stats.MobArenaStatsPlugin;
+import org.mobarena.stats.store.ArenaStats;
 import org.mobarena.stats.store.GlobalStats;
 import org.mobarena.stats.store.StatsStore;
 
@@ -37,7 +40,10 @@ public class MASPlaceholders extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, String identifier) {
+
         final String[] args = identifier.split("_");
+        String slug = Slugs.create(args[0]);
+        ArenaStats arenaStats = store.getArenaStats(slug);
 
         switch (identifier) {
             case "global_sessions":
@@ -51,7 +57,10 @@ public class MASPlaceholders extends PlaceholderExpansion {
             case "global_waves":
                 return Long.toString(globalStats.totalWaves);
         }
-
+        // arena_highest_wave
+        if ("highest_wave".equals(identifier)) {
+            return Integer.toString(arenaStats.highestWave);
+        }
         return null; // Not recognized by the Expansion
     }
 }
