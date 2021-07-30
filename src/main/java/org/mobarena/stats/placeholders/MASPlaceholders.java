@@ -54,7 +54,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
         if (identifier.endsWith("_total-sessions-test")) {
             String testPlayer = identifier.replace("_total-sessions-test", "");
             PlayerStats playerStatsTest = store.getPlayerStats(testPlayer);
-            return Integer.toString(playerStatsTest.totalSessions);
+            return Integer.toString(playerStatsTest.totalSessions) + " " + testPlayer;
         }
 
         switch (identifier) {
