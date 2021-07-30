@@ -41,22 +41,18 @@ public class MASPlaceholders extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, String identifier) {
 
         final String[] args = identifier.split("\\_");
-        final String arenaName = args[0];
-        final String playerName = args[1];
+         String arenaName = args[0];
+         String playerName = args[1];
 
-        ArenaStats arenaStats = store.getArenaStats(arenaName);
-        PlayerStats playerStats = store.getPlayerStats(playerName);
+         String arenaNameCropped = arenaName.replaceAll("/_(?:highest\\-(?:seconds\\-formatted|seconds|kills|wave)|total\\-(?:seconds\\-formatted|(?:session|wave)s|seconds|kills))/", "");
+         String playerNameCropped = playerName.replaceAll("/_total\\-(?:se(?:conds(?:\\-formated)?|ssions)|(?:wave|kill)s)/", "");
+
+        ArenaStats arenaStats = store.getArenaStats(arenaNameCropped);
+        PlayerStats playerStats = store.getPlayerStats(playerNameCropped);
 
         long totalPlayerMilliseconds = playerStats.totalSeconds * 1000;
         long totalArenaMilliseconds = arenaStats.totalSeconds * 1000;
         long highestArenaMilliseconds = arenaStats.totalSeconds * 1000;
-
-        if (identifier.endsWith("_total-sessions-test")) {
-            String testPlayer = identifier.replace("_total-sessions-test", "");
-            testPlayer = testPlayer.replace("player_", "");
-            PlayerStats playerStatsTest = store.getPlayerStats(testPlayer);
-            return Integer.toString(playerStatsTest.totalSessions) + " " + testPlayer;
-        }
 
         switch (identifier) {
             case "global_sessions":
@@ -99,7 +95,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
             final String param = args[2];
 
             if ("total-sessions".equals(param)) {
-                return Integer.toString(playerStats.totalSessions);
+                return Integer.toString(playerStats.totalSessions) + playerNameCropped;
             } else if ("total-kills".equals(param)) {
                 return Long.toString(playerStats.totalKills);
             } else if ("total-seconds".equals(param)) {
