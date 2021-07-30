@@ -25,7 +25,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
 
     @Override
     public String getIdentifier() {
-        return "mobarenastats";
+        return "mastats";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, String identifier) {
 
         final String[] args = identifier.split("\\_");
-         String arenaName = args[0];
+        final String arenaName = args[0];
 
         ArenaStats arenaStats = store.getArenaStats(arenaName);
         PlayerStats playerStats = store.getPlayerStats(player.getName());
@@ -61,6 +61,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 return Long.toString(globalStats.totalKills);
             case "global_waves":
                 return Long.toString(globalStats.totalWaves);
+
             case "player_total-sessions":
                 return Integer.toString(playerStats.totalSessions);
             case "player_total-kills":
