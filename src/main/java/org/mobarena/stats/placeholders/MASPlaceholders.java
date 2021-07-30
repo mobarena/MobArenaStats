@@ -42,9 +42,9 @@ public class MASPlaceholders extends PlaceholderExpansion {
 
         final String[] args = identifier.split("\\_");
          String arenaName = args[0];
-         String playerName = args[1];
 
         ArenaStats arenaStats = store.getArenaStats(arenaName);
+        PlayerStats playerStats = store.getPlayerStats(player.getName());
 
         long totalArenaMilliseconds = arenaStats.totalSeconds * 1000;
         long highestArenaMilliseconds = arenaStats.totalSeconds * 1000;
@@ -61,6 +61,17 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 return Long.toString(globalStats.totalKills);
             case "global_waves":
                 return Long.toString(globalStats.totalWaves);
+            case "player_total-sessions":
+                return Integer.toString(playerStats.totalSessions);
+            case "player_total-kills":
+                return Long.toString(playerStats.totalKills);
+            case "player_total-seconds":
+                return Long.toString(playerStats.totalSeconds);
+            case "player_total-seconds-formatted":
+                long totalPlayerMilliseconds = playerStats.totalSeconds * 1000;
+                return DurationFormatUtils.formatDuration(totalPlayerMilliseconds, "HH:mm:ss", true);
+            case "player_total-waves":
+                return Long.toString(playerStats.totalWaves);
         }
         // arenaName_stat
         if (args.length == 2) {
@@ -86,33 +97,9 @@ public class MASPlaceholders extends PlaceholderExpansion {
                     return DurationFormatUtils.formatDuration(totalArenaMilliseconds, "HH:mm:ss", true);
             }
         }
-        // player_stat_playerName
-        if (args.length == 3) {
-            final String param = args[3];
-            switch (param) {
-                case "total-sessions":
-                    String rawPlayerName = identifier.replace("player_total-sessions_", "");
-                    PlayerStats playerStats = store.getPlayerStats(rawPlayerName);
-                    return Integer.toString(playerStats.totalSessions);
-                case "total-kills":
-                     rawPlayerName = identifier.replace("player_total-kills_", "");
-                     playerStats = store.getPlayerStats(rawPlayerName);
-                    return Long.toString(playerStats.totalKills);
-                case "total-seconds":
-                    rawPlayerName = identifier.replace("player_total-seconds_", "");
-                    playerStats = store.getPlayerStats(rawPlayerName);
-                    return Long.toString(playerStats.totalSeconds);
-                case "total-seconds-formatted":
-                    rawPlayerName = identifier.replace("player_total-seconds-formatted_", "");
-                    playerStats = store.getPlayerStats(rawPlayerName);
-                    long totalPlayerMilliseconds = playerStats.totalSeconds * 1000;
-                    return DurationFormatUtils.formatDuration(totalPlayerMilliseconds, "HH:mm:ss", true);
-                case "total-waves":
-                    rawPlayerName = identifier.replace("player_total-waves_", "");
-                    playerStats = store.getPlayerStats(rawPlayerName);
-                    return Long.toString(playerStats.totalWaves);
+            switch (identifier) {
+
             }
-        }
         return null; // Not recognized by the Expansion
 }
 }
