@@ -16,6 +16,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
     MobArenaStats plugin = MobArenaStatsPlugin.getInstance();
     StatsStore store = plugin.getStatsStore();
     GlobalStats globalStats = store.getGlobalStats();
+
     long globalDurationFormatted = globalStats.totalSeconds * 1000;
 
 
@@ -41,11 +42,12 @@ public class MASPlaceholders extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, String identifier) {
 
-        final String[] args = identifier.split("_");
-        String slug = Slugs.create(args[0]);
-        ArenaStats arenaStats = store.getArenaStats(slug);
+        String arenaName = identifier.split("_")[0];
+        ArenaStats arenaStats = store.getArenaStats(arenaName);
 
         switch (identifier) {
+            case "_total_sessions":
+                return Integer.toString(arenaStats.totalSessions);
             case "global_sessions":
                 return Integer.toString(globalStats.totalSessions);
             case "global_duration":
@@ -58,9 +60,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 return Long.toString(globalStats.totalWaves);
         }
         // arena_highest_wave
-        if ("highest_wave".equals(identifier)) {
-            return Integer.toString(arenaStats.highestWave);
-        }
+
         return null; // Not recognized by the Expansion
     }
 }
