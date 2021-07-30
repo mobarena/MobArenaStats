@@ -43,15 +43,21 @@ public class MASPlaceholders extends PlaceholderExpansion {
         final String[] args = identifier.split("\\_");
         final String arenaName = args[0];
         final String playerName = args[1];
+
         ArenaStats arena = store.getArenaStats(arenaName);
         PlayerStats name = store.getPlayerStats(playerName);
+
+        long totalPlayerMilliseconds = name.totalSeconds * 1000;
+        long totalArenaMilliseconds = arena.totalSeconds * 1000;
+        long highestArenaMilliseconds = arena.totalSeconds * 1000;
+
 
         switch (identifier) {
             case "global_sessions":
                 return Integer.toString(globalStats.totalSessions);
             case "global_seconds":
                 return Long.toString(globalStats.totalSeconds);
-            case "global_duration_formatted":
+            case "global_duration-formatted":
                 long globalDurationFormatted = globalStats.totalSeconds * 1000;
                 return DurationFormatUtils.formatDuration(globalDurationFormatted, "HH:mm:ss", true);
             case "global_kills":
@@ -60,66 +66,63 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 return Long.toString(globalStats.totalWaves);
         }
         // arenaName_stat
-        if (args.length == 2){
+        if (args.length == 2) {
             final String param = args[1];
 
-            if ("highest-wave".equals(param)){
+            if ("highest-wave".equals(param))
                 return Integer.toString(arena.highestWave);
-            }
 
-            else if ("highest-kills".equals(param)){
+
+            else if ("highest-kills".equals(param))
                 Integer.toString(arena.highestKills);
-            }
 
-            else if ("highest-seconds".equals(param)){
+
+            else if ("highest-seconds".equals(param))
                 Integer.toString(arena.highestSeconds);
-            }
-            else if ("highest-duration-formatted".equals(param)){
-                long highestMilliseconds = arena.totalSeconds * 1000;
-                return DurationFormatUtils.formatDuration(highestMilliseconds, "HH:mm:ss", true);
-            }
 
-            else if ("total-kills".equals(param)){
+            else if ("highest-duration-formatted".equals(param))
+                return DurationFormatUtils.formatDuration(highestArenaMilliseconds, "HH:mm:ss", true);
+
+
+            else if ("total-kills".equals(param))
                 Long.toString(arena.totalKills);
-            }
 
-            else if ("total-waves".equals(param)){
+
+            else if ("total-waves".equals(param))
                 Long.toString(arena.totalWaves);
-            }
 
-            else if ("total-sessions".equals(param)){
+
+            else if ("total-sessions".equals(param))
                 Integer.toString(arena.totalSessions);
-            }
-            else if ("total-seconds".equals(param)) {
-                return Long.toString(arena.totalSeconds);
-            }
-            else if ("total-duration-formatted".equals(param)) {
-                int totalMilliseconds = (int) (arena.totalSeconds * 1000);
-                return DurationFormatUtils.formatDuration(totalMilliseconds, "HH:mm:ss", true);
 
-            }
+            else if ("total-seconds".equals(param))
+                return Long.toString(arena.totalSeconds);
+
+            else if ("total-duration-formatted".equals(param))
+                return DurationFormatUtils.formatDuration(totalArenaMilliseconds, "HH:mm:ss", true);
+
+
         }
         // player_playerName_stat
         if (args.length == 3) {
             final String param = args[2];
 
-            if ("total-sessions".equals(param)) {
+            if ("total-sessions".equals(param))
                 return Integer.toString(name.totalSessions);
-            }
-            else if ("total-kills".equals(param)) {
-                return Long.toString(name.totalKills);
-            }
-            else if ("total-seconds".equals(param)) {
-                return Long.toString(name.totalSeconds);
-            }
-            else if ("total-duration-formatted".equals(param)) {
-                long totalMilliseconds = name.totalSeconds * 1000;
-                return DurationFormatUtils.formatDuration(totalMilliseconds, "HH:mm:ss", true);
 
-            }
-            else if ("total-waves".equals(param)) {
+            else if ("total-kills".equals(param))
+                return Long.toString(name.totalKills);
+
+            else if ("total-seconds".equals(param))
+                return Long.toString(name.totalSeconds);
+
+            else if ("total-duration-formatted".equals(param))
+                return DurationFormatUtils.formatDuration(totalPlayerMilliseconds, "HH:mm:ss", true);
+
+
+            else if ("total-waves".equals(param))
                 return Long.toString(name.totalWaves);
-            }
+
         }
         return null; // Not recognized by the Expansion
 }
