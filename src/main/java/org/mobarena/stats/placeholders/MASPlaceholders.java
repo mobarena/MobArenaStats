@@ -68,40 +68,35 @@ public class MASPlaceholders extends PlaceholderExpansion {
         // arenaName_stat
         if (args.length == 2) {
             final String param = args[1];
+            switch (param) {
+                case "highest-wave":
+                    return Integer.toString(arena.highestWave);
 
-            if ("highest-wave".equals(param))
-                return Integer.toString(arena.highestWave);
+                case "highest-kills":
+                    Integer.toString(arena.highestKills);
 
+                case "highest-seconds":
+                    Integer.toString(arena.highestSeconds);
 
-            else if ("highest-kills".equals(param))
-                Integer.toString(arena.highestKills);
+                case "highest-duration-formatted":
+                    return DurationFormatUtils.formatDuration(highestArenaMilliseconds, "HH:mm:ss", true);
 
+                case "total-kills":
+                    Long.toString(arena.totalKills);
 
-            else if ("highest-seconds".equals(param))
-                Integer.toString(arena.highestSeconds);
+                case "total-waves":
+                    Long.toString(arena.totalWaves);
 
-            else if ("highest-duration-formatted".equals(param))
-                return DurationFormatUtils.formatDuration(highestArenaMilliseconds, "HH:mm:ss", true);
+                case "total-sessions":
+                    Integer.toString(arena.totalSessions);
 
+                case "total-seconds":
+                    return Long.toString(arena.totalSeconds);
 
-            else if ("total-kills".equals(param))
-                Long.toString(arena.totalKills);
+                case "total-duration-formatted":
+                    return DurationFormatUtils.formatDuration(totalArenaMilliseconds, "HH:mm:ss", true);
 
-
-            else if ("total-waves".equals(param))
-                Long.toString(arena.totalWaves);
-
-
-            else if ("total-sessions".equals(param))
-                Integer.toString(arena.totalSessions);
-
-            else if ("total-seconds".equals(param))
-                return Long.toString(arena.totalSeconds);
-
-            else if ("total-duration-formatted".equals(param))
-                return DurationFormatUtils.formatDuration(totalArenaMilliseconds, "HH:mm:ss", true);
-
-
+            }
         }
         // player_playerName_stat
         if (args.length == 3) {
@@ -118,7 +113,6 @@ public class MASPlaceholders extends PlaceholderExpansion {
 
             else if ("total-duration-formatted".equals(param))
                 return DurationFormatUtils.formatDuration(totalPlayerMilliseconds, "HH:mm:ss", true);
-
 
             else if ("total-waves".equals(param))
                 return Long.toString(name.totalWaves);
