@@ -2,9 +2,7 @@ package org.mobarena.stats.placeholders;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.apache.commons.lang.time.DurationFormatUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.mobarena.stats.MobArenaStats;
 import org.mobarena.stats.MobArenaStatsPlugin;
 import org.mobarena.stats.store.ArenaStats;
@@ -45,15 +43,13 @@ public class MASPlaceholders extends PlaceholderExpansion {
         final String[] args = identifier.split("\\_");
         final String arenaName = args[0];
         final String playerName = args[1];
-        // test
-        Player testplayer = Bukkit.getPlayer(args[1]);
 
-        ArenaStats arena = store.getArenaStats(arenaName);
-        PlayerStats name = store.getPlayerStats(testplayer.getName());
+        ArenaStats arenaStats = store.getArenaStats(arenaName);
+        PlayerStats playerStats = store.getPlayerStats(playerName);
 
-        long totalPlayerMilliseconds = name.totalSeconds * 1000;
-        long totalArenaMilliseconds = arena.totalSeconds * 1000;
-        long highestArenaMilliseconds = arena.totalSeconds * 1000;
+        long totalPlayerMilliseconds = playerStats.totalSeconds * 1000;
+        long totalArenaMilliseconds = arenaStats.totalSeconds * 1000;
+        long highestArenaMilliseconds = arenaStats.totalSeconds * 1000;
 
 
         switch (identifier) {
@@ -74,57 +70,55 @@ public class MASPlaceholders extends PlaceholderExpansion {
             final String param = args[1];
             switch (param) {
                 case "highest-wave":
-                    return Integer.toString(arena.highestWave);
+                    return Integer.toString(arenaStats.highestWave);
 
                 case "highest-kills":
-                    return Integer.toString(arena.highestKills);
+                    return Integer.toString(arenaStats.highestKills);
 
                 case "highest-seconds":
-                    return Integer.toString(arena.highestSeconds);
+                    return Integer.toString(arenaStats.highestSeconds);
 
                 case "highest-seconds-formatted":
                     return DurationFormatUtils.formatDuration(highestArenaMilliseconds, "HH:mm:ss", true);
 
                 case "total-kills":
-                    return Long.toString(arena.totalKills);
+                    return Long.toString(arenaStats.totalKills);
 
                 case "total-waves":
-                    return Long.toString(arena.totalWaves);
+                    return Long.toString(arenaStats.totalWaves);
 
                 case "total-sessions":
-                    return Integer.toString(arena.totalSessions);
+                    return Integer.toString(arenaStats.totalSessions);
 
                 case "total-seconds":
-                    return Long.toString(arena.totalSeconds);
+                    return Long.toString(arenaStats.totalSeconds);
 
                 case "total-seconds-formatted":
                     return DurationFormatUtils.formatDuration(totalArenaMilliseconds, "HH:mm:ss", true);
             }
         }
-        // player_playerName_stat
-        if (args.length == 3 && testplayer != null) {
+        // player_stat_playerName
+        if (args.length == 3) {
             final String param = args[2];
 
             switch (param) {
 
                 case "total-sessions":
-                    return Integer.toString(name.totalSessions);
+                    return Integer.toString(playerStats.totalSessions);
 
                 case "total-kills":
-                    return Long.toString(name.totalKills);
+                    return Long.toString(playerStats.totalKills);
 
                 case "total-seconds":
-                    return Long.toString(name.totalSeconds);
+                    return Long.toString(playerStats.totalSeconds);
 
                 case "total-seconds-formatted":
                     return DurationFormatUtils.formatDuration(totalPlayerMilliseconds, "HH:mm:ss", true);
 
                 case "total-waves":
-                    return Long.toString(name.totalWaves);
+                    return Long.toString(playerStats.totalWaves);
+
             }
-        }
-        else {
-            return "Player not found!";
         }
         return null; // Not recognized by the Expansion
 }
