@@ -97,9 +97,6 @@ public class MASPlaceholders extends PlaceholderExpansion {
                     return DurationFormatUtils.formatDuration(totalArenaMilliseconds, "HH:mm:ss", true);
             }
         }
-            switch (identifier) {
-
-            }
         return null; // Not recognized by the Expansion
 }
 }
