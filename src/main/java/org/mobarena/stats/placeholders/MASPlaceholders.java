@@ -1,7 +1,5 @@
 package org.mobarena.stats.placeholders;
 
-import com.garbagemule.MobArena.framework.ArenaMaster;
-import com.garbagemule.MobArena.util.Slugs;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.OfflinePlayer;
@@ -18,7 +16,6 @@ public class MASPlaceholders extends PlaceholderExpansion {
     StatsStore store = plugin.getStatsStore();
     GlobalStats globalStats = store.getGlobalStats();
 
-    long globalDurationFormatted = globalStats.totalSeconds * 1000;
 
 
     @Override
@@ -55,7 +52,8 @@ public class MASPlaceholders extends PlaceholderExpansion {
             case "global_seconds":
                 return Long.toString(globalStats.totalSeconds);
             case "global_duration_formatted":
-                return DurationFormatUtils.formatDuration(globalDurationFormatted, "H Hours, mm minutes, and ss seconds", true);
+                long globalDurationFormatted = globalStats.totalSeconds * 1000;
+                return DurationFormatUtils.formatDuration(globalDurationFormatted, "HH:mm:ss", true);
             case "global_kills":
                 return Long.toString(globalStats.totalKills);
             case "global_waves":
@@ -77,8 +75,8 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 Integer.toString(arena.highestSeconds);
             }
             else if ("highest-duration-formatted".equals(param)){
-                int highestMilliseconds = (int) (name.totalSeconds * 1000);
-                return DurationFormatUtils.formatDuration(highestMilliseconds, "H Hours, mm minutes, and ss seconds", true);
+                long highestMilliseconds = arena.totalSeconds * 1000;
+                return DurationFormatUtils.formatDuration(highestMilliseconds, "HH:mm:ss", true);
             }
 
             else if ("total-kills".equals(param)){
@@ -93,11 +91,11 @@ public class MASPlaceholders extends PlaceholderExpansion {
                 Integer.toString(arena.totalSessions);
             }
             else if ("total-seconds".equals(param)) {
-                return Long.toString(name.totalSeconds);
+                return Long.toString(arena.totalSeconds);
             }
             else if ("total-duration-formatted".equals(param)) {
-                int totalMilliseconds = (int) (name.totalSeconds * 1000);
-                return DurationFormatUtils.formatDuration(totalMilliseconds, "H Hours, mm minutes, and ss seconds", true);
+                int totalMilliseconds = (int) (arena.totalSeconds * 1000);
+                return DurationFormatUtils.formatDuration(totalMilliseconds, "HH:mm:ss", true);
 
             }
         }
@@ -111,12 +109,12 @@ public class MASPlaceholders extends PlaceholderExpansion {
             else if ("total-kills".equals(param)) {
                 return Long.toString(name.totalKills);
             }
-            else if ("total-duration".equals(param)) {
+            else if ("total-seconds".equals(param)) {
                 return Long.toString(name.totalSeconds);
             }
             else if ("total-duration-formatted".equals(param)) {
-                int totalMilliseconds = (int) (name.totalSeconds * 1000);
-                return DurationFormatUtils.formatDuration(totalMilliseconds, "H Hours, mm minutes, and ss seconds", true);
+                long totalMilliseconds = name.totalSeconds * 1000;
+                return DurationFormatUtils.formatDuration(totalMilliseconds, "HH:mm:ss", true);
 
             }
             else if ("total-waves".equals(param)) {
