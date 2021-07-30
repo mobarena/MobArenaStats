@@ -62,7 +62,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
         if (args.length == 2){
             final String param = args[1];
 
-            if ("highest_wave".equals(param)){
+            if ("highestWave".equals(param)){
                 return Integer.toString(arena.highestWave);
             }
         }
