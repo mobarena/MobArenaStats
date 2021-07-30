@@ -44,8 +44,8 @@ public class MASPlaceholders extends PlaceholderExpansion {
          String arenaName = args[0];
          String playerName = args[1];
 
-         String arenaNameCropped = arenaName.replaceAll("/_(?:highest\\-(?:seconds\\-formatted|seconds|kills|wave)|total\\-(?:seconds\\-formatted|(?:session|wave)s|seconds|kills))/", "");
-         String playerNameCropped = playerName.replaceAll("/_total\\-(?:se(?:conds(?:\\-formated)?|ssions)|(?:wave|kill)s)/", "");
+         String arenaNameCropped = identifier.replaceAll("/_(?:highest\\-(?:seconds\\-formatted|seconds|kills|wave)|total\\-(?:seconds\\-formatted|(?:session|wave)s|seconds|kills))/", "");
+         String playerNameCropped = identifier.replaceAll("/player_total\\-(?:seconds(?:\\-formatted)?|(?:session|wave)s|kills)_/", "");
 
         ArenaStats arenaStats = store.getArenaStats(arenaNameCropped);
         PlayerStats playerStats = store.getPlayerStats(playerNameCropped);
@@ -92,7 +92,7 @@ public class MASPlaceholders extends PlaceholderExpansion {
         }
         // player_stat_playerName
         if (args.length == 3) {
-            final String param = args[2];
+            final String param = args[3];
 
             if ("total-sessions".equals(param)) {
                 return Integer.toString(playerStats.totalSessions) + playerNameCropped;
