@@ -46,7 +46,7 @@
     <dependency>
       <groupId>com.github.garbagemule</groupId>
       <artifactId>MobArena</artifactId>
-      <version>0.105</version>
+      <version>b99713f1</version>
       <scope>provided</scope>
     </dependency>
 
