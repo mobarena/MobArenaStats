@@ -34,11 +34,11 @@
       <version>2.2.1</version>
     </dependency>
 
-    <!-- https://hub.spigotmc.org/nexus/content/groups/public/org/bukkit/bukkit/ -->
+    <!-- https://hub.spigotmc.org/nexus/content/groups/public/org/spigotmc/spigot-api/ -->
     <dependency>
-      <groupId>org.bukkit</groupId>
-      <artifactId>bukkit</artifactId>
-      <version>1.13-R0.1-SNAPSHOT</version>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.17-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
 
@@ -134,7 +134,7 @@
   <repositories>
     <repository>
       <id>spigot-repo</id>
-      <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
 
     <repository>
