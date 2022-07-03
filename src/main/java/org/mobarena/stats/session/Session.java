@@ -47,6 +47,11 @@ public class Session {
 
     public void playerLeave(Arena arena, Player player) {
         UUID playerId = player.getUniqueId();
+        if (sessionStats.startTime == null) {
+            playerStats.remove(playerId);
+            return;
+        }
+
         PlayerSessionStats stats = playerStats.get(playerId);
         if (stats == null) {
             return;
@@ -63,6 +68,11 @@ public class Session {
 
     public void playerDeath(Arena arena, Player player) {
         UUID playerId = player.getUniqueId();
+        if (sessionStats.startTime == null) {
+            playerStats.remove(playerId);
+            return;
+        }
+
         PlayerSessionStats stats = playerStats.get(playerId);
         if (stats == null) {
             return;

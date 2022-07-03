@@ -96,6 +96,19 @@ class SessionTest {
     }
 
     @Test
+    void removeFromSessionOnLeaveBeforeStart() {
+        UUID playerId = UUID.fromString("cafebabe-ea75-dead-beef-deadcafebabe");
+        Player player = Mocks.player(playerId, "garbagemule");
+        Arena arena = mock(Arena.class);
+        subject.playerJoin(player);
+
+        subject.playerLeave(arena, player);
+
+        PlayerSessionStats actual = subject.getPlayerStats(playerId);
+        assertThat(actual, nullValue());
+    }
+
+    @Test
     void setLeaveTimeOnLeave() {
         UUID playerId = UUID.fromString("cafebabe-ea75-dead-beef-deadcafebabe");
         Player player = Mocks.player(playerId, "garbagemule");
@@ -103,6 +116,7 @@ class SessionTest {
         ArenaPlayer ap = mock(ArenaPlayer.class);
         when(arena.getArenaPlayer(player)).thenReturn(ap);
         subject.playerJoin(player);
+        subject.start();
 
         subject.playerLeave(arena, player);
 
@@ -118,6 +132,7 @@ class SessionTest {
         ArenaPlayer ap = mock(ArenaPlayer.class);
         when(arena.getArenaPlayer(player)).thenReturn(ap);
         subject.playerJoin(player);
+        subject.start();
 
         subject.playerLeave(arena, player);
 
@@ -133,12 +148,26 @@ class SessionTest {
         ArenaPlayer ap = mock(ArenaPlayer.class);
         when(arena.getArenaPlayer(player)).thenReturn(ap);
         subject.playerJoin(player);
+        subject.start();
         subject.getPlayerStats(playerId).conclusion = PlayerConclusion.VICTORY;
 
         subject.playerLeave(arena, player);
 
         PlayerSessionStats actual = subject.getPlayerStats(playerId);
         assertThat(actual.conclusion, not(equalTo(PlayerConclusion.RETREAT)));
+    }
+
+    @Test
+    void removeFromSessionOnDeathBeforeStart() {
+        UUID playerId = UUID.fromString("cafebabe-ea75-dead-beef-deadcafebabe");
+        Player player = Mocks.player(playerId, "garbagemule");
+        Arena arena = mock(Arena.class);
+        subject.playerJoin(player);
+
+        subject.playerDeath(arena, player);
+
+        PlayerSessionStats actual = subject.getPlayerStats(playerId);
+        assertThat(actual, nullValue());
     }
 
     @Test
@@ -149,6 +178,7 @@ class SessionTest {
         ArenaPlayer ap = mock(ArenaPlayer.class);
         when(arena.getArenaPlayer(player)).thenReturn(ap);
         subject.playerJoin(player);
+        subject.start();
 
         subject.playerDeath(arena, player);
 
@@ -164,6 +194,7 @@ class SessionTest {
         ArenaPlayer ap = mock(ArenaPlayer.class);
         when(arena.getArenaPlayer(player)).thenReturn(ap);
         subject.playerJoin(player);
+        subject.start();
 
         subject.playerDeath(arena, player);
 
@@ -179,6 +210,7 @@ class SessionTest {
         ArenaPlayer ap = mock(ArenaPlayer.class);
         when(arena.getArenaPlayer(player)).thenReturn(ap);
         subject.playerJoin(player);
+        subject.start();
         subject.getPlayerStats(playerId).conclusion = PlayerConclusion.VICTORY;
 
         subject.playerDeath(arena, player);
@@ -246,6 +278,7 @@ class SessionTest {
         when(arena.getArenaPlayer(corpse)).thenReturn(ap);
         subject.playerJoin(corpse);
         subject.playerJoin(survivor);
+        subject.start();
         subject.playerDeath(arena, corpse);
 
         subject.complete();
