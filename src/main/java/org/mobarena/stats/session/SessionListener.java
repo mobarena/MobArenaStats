@@ -88,6 +88,10 @@ public class SessionListener implements Listener {
         Arena arena = event.getArena();
         Player player = event.getPlayer();
 
+        if (arena.inSpec(player)) {
+            return;
+        }
+
         Session session = sessionStore.getByArena(arena);
         if (session == null) {
             log.warning("Unexpected leave event for non-existent session of arena " + arena.getSlug());

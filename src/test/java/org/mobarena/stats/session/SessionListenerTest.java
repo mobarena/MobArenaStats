@@ -111,9 +111,22 @@ class SessionListenerTest {
     }
 
     @Test
+    void ignoresPlayerLeaveForSpectators() {
+        Player player = mock(Player.class);
+        Arena arena = mock(Arena.class);
+        when(arena.inSpec(player)).thenReturn(true);
+        ArenaPlayerLeaveEvent event = new ArenaPlayerLeaveEvent(player, arena);
+
+        subject.on(event);
+
+        verifyNoInteractions(sessionStore);
+    }
+
+    @Test
     void logsWarningIfPlayerLeavesInNonExistentSession() {
         Player player = mock(Player.class);
         Arena arena = mock(Arena.class);
+        when(arena.inSpec(player)).thenReturn(false);
         when(sessionStore.getByArena(arena)).thenReturn(null);
         ArenaPlayerLeaveEvent event = new ArenaPlayerLeaveEvent(player, arena);
 
@@ -127,6 +140,7 @@ class SessionListenerTest {
         Player player = mock(Player.class);
         Arena arena = mock(Arena.class);
         Session session = mock(Session.class);
+        when(arena.inSpec(player)).thenReturn(false);
         when(arena.isRunning()).thenReturn(false);
         when(arena.getPlayersInLobby()).thenReturn(Collections.singleton(player));
         when(sessionStore.getByArena(arena)).thenReturn(session);
@@ -142,6 +156,7 @@ class SessionListenerTest {
         Player player = mock(Player.class);
         Arena arena = mock(Arena.class);
         Session session = mock(Session.class);
+        when(arena.inSpec(player)).thenReturn(false);
         when(arena.isRunning()).thenReturn(false);
         when(arena.getPlayersInLobby()).thenReturn(Collections.singleton(player));
         when(sessionStore.getByArena(arena)).thenReturn(session);
@@ -158,6 +173,7 @@ class SessionListenerTest {
         Player other = mock(Player.class);
         Arena arena = mock(Arena.class);
         Session session = mock(Session.class);
+        when(arena.inSpec(player)).thenReturn(false);
         when(arena.isRunning()).thenReturn(false);
         when(arena.getPlayersInLobby()).thenReturn(new HashSet<>(Arrays.asList(player, other)));
         when(sessionStore.getByArena(arena)).thenReturn(session);
@@ -173,6 +189,7 @@ class SessionListenerTest {
         Player player = mock(Player.class);
         Arena arena = mock(Arena.class);
         Session session = mock(Session.class);
+        when(arena.inSpec(player)).thenReturn(false);
         when(arena.isRunning()).thenReturn(true);
         when(sessionStore.getByArena(arena)).thenReturn(session);
         ArenaPlayerLeaveEvent event = new ArenaPlayerLeaveEvent(player, arena);
