@@ -4,6 +4,8 @@ MobArenaStats is a _plugin extension_ for [MobArena](https://github.com/garbagem
 The extension collects stats from MobArena sessions into persistent storage such as MySQL, MariaDB, and SQLite databases.
 It hooks into MobArena's command handler to provide commands for querying and managing the stats.
 
+**Note:** This extension requires MobArena 0.107 or later to work.
+
 
 ## Getting Started
 
