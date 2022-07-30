@@ -9,8 +9,12 @@ It hooks into MobArena's command handler to provide commands for querying and ma
 
 ## Getting Started
 
-Download a copy of the latest MobArenaStats build and place it in your server's `plugins` folder.
-You can grab a build from the _Artifacts_ section of the latest run of the [build workflow](https://github.com/mobarena/MobArenaStats/actions/workflows/build.yml) in GitHub Actions, or you can join the MobArena Discord server and grab one from the `#test-builds` channel.
+Download a copy of MobArenaStats from one of these release channels:
+
+- Stable (recommended): [Latest release](https://github.com/mobarena/MobArenaStats/releases/latest)
+- Dev (experimental): [Latest build](https://github.com/mobarena/MobArenaStats/actions/workflows/build.yml)
+
+Place the jar-file in your server's `plugins` folder like you would any other plugin.
 
 Start your server and let the plugin load.
 It will generate a default `config.yml` file and set up a default SQLite data store.
