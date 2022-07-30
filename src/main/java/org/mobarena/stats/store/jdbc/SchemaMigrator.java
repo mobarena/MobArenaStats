@@ -70,8 +70,10 @@ class SchemaMigrator {
             // (available via the underlying JDBC connection object) to find
             // out if the schema migrations table exists.
             Connection connection = handle.getConnection();
+            String catalog = connection.getCatalog();
+            String schema = connection.getSchema();
             DatabaseMetaData meta = connection.getMetaData();
-            try (ResultSet tables = meta.getTables(null, null, "schema_migrations", null)) {
+            try (ResultSet tables = meta.getTables(catalog, schema, "schema_migrations", null)) {
                 while (tables.next()) {
                     String name = tables.getString("TABLE_NAME");
                     if (name.equals("schema_migrations")) {
